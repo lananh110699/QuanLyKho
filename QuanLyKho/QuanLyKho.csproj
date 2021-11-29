@@ -128,6 +128,11 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\AccountsAdminController.cs" />
+    <Compile Include="Areas\Admin\Controllers\NCCsAminController.cs" />
+    <Compile Include="Areas\Admin\Controllers\NhapKhoesAdminController.cs" />
+    <Compile Include="Controllers\AccountsController.cs" />
     <Compile Include="Controllers\HangHoasController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\NCCsController.cs" />
@@ -141,15 +146,21 @@
     <Compile Include="Migrations\202111260820413_create_6_table.Designer.cs">
       <DependentUpon>202111260820413_create_6_table.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202111291501091_them_conf_account.cs" />
+    <Compile Include="Migrations\202111291501091_them_conf_account.Designer.cs">
+      <DependentUpon>202111291501091_them_conf_account.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Account.cs" />
     <Compile Include="Models\AutoGenerateKey.cs" />
+    <Compile Include="Models\Encrytion.cs" />
     <Compile Include="Models\ExcelProcess.cs" />
     <Compile Include="Models\HangHoa.cs" />
     <Compile Include="Models\LTQLDBContext.cs" />
     <Compile Include="Models\NCC.cs" />
     <Compile Include="Models\NhapKho.cs" />
     <Compile Include="Models\Role.cs" />
+    <Compile Include="Models\UserRoleProvider.cs" />
     <Compile Include="Models\XuatKho.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -164,6 +175,19 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Areas\Admin\Views\web.config" />
+    <Content Include="Areas\Admin\Views\NhapKhoesAdmin\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\NhapKhoesAdmin\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\NhapKhoesAdmin\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\NhapKhoesAdmin\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\NhapKhoesAdmin\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\NCCsAmin\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\NCCsAmin\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\NCCsAmin\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\NCCsAmin\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\NCCsAmin\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\AccountsAdmin\Register.cshtml" />
+    <Content Include="Areas\Admin\Views\AccountsAdmin\Login.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -214,9 +238,12 @@
     <Content Include="Views\Roles\Details.cshtml" />
     <Content Include="Views\Roles\Edit.cshtml" />
     <Content Include="Views\Roles\Index.cshtml" />
+    <Content Include="Views\Accounts\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Admin\Data\" />
+    <Folder Include="Areas\Admin\Views\Shared\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -234,6 +261,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202111260820413_create_6_table.resx">
       <DependentUpon>202111260820413_create_6_table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202111291501091_them_conf_account.resx">
+      <DependentUpon>202111291501091_them_conf_account.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

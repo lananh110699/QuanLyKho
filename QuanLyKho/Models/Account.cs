@@ -21,6 +21,9 @@ namespace QuanLyKho.Models
         [DataType(DataType.Password)]
         [StringLength(50)]
         public string Password { get; set; }
+
+        [DataType(DataType.Password)]
+        public string ConfirmPassword { get; set; }
         [StringLength(10)]
         public string RoleID { get; set; }
     }
