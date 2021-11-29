@@ -45,10 +45,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -120,13 +128,29 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\HangHoasController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\NCCsController.cs" />
+    <Compile Include="Controllers\NhapKhoesController.cs" />
+    <Compile Include="Controllers\RolesController.cs" />
+    <Compile Include="Controllers\XuatKhoesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202111260820413_create_6_table.cs" />
+    <Compile Include="Migrations\202111260820413_create_6_table.Designer.cs">
+      <DependentUpon>202111260820413_create_6_table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Account.cs" />
+    <Compile Include="Models\AutoGenerateKey.cs" />
+    <Compile Include="Models\ExcelProcess.cs" />
     <Compile Include="Models\HangHoa.cs" />
+    <Compile Include="Models\LTQLDBContext.cs" />
     <Compile Include="Models\NCC.cs" />
+    <Compile Include="Models\NhapKho.cs" />
+    <Compile Include="Models\Role.cs" />
+    <Compile Include="Models\XuatKho.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -165,6 +189,31 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\HangHoas\Create.cshtml" />
+    <Content Include="Views\HangHoas\Delete.cshtml" />
+    <Content Include="Views\HangHoas\Details.cshtml" />
+    <Content Include="Views\HangHoas\Edit.cshtml" />
+    <Content Include="Views\HangHoas\Index.cshtml" />
+    <Content Include="Views\NCCs\Create.cshtml" />
+    <Content Include="Views\NCCs\Delete.cshtml" />
+    <Content Include="Views\NCCs\Details.cshtml" />
+    <Content Include="Views\NCCs\Edit.cshtml" />
+    <Content Include="Views\NCCs\Index.cshtml" />
+    <Content Include="Views\NhapKhoes\Create.cshtml" />
+    <Content Include="Views\NhapKhoes\Delete.cshtml" />
+    <Content Include="Views\NhapKhoes\Details.cshtml" />
+    <Content Include="Views\NhapKhoes\Edit.cshtml" />
+    <Content Include="Views\NhapKhoes\Index.cshtml" />
+    <Content Include="Views\XuatKhoes\Create.cshtml" />
+    <Content Include="Views\XuatKhoes\Delete.cshtml" />
+    <Content Include="Views\XuatKhoes\Details.cshtml" />
+    <Content Include="Views\XuatKhoes\Edit.cshtml" />
+    <Content Include="Views\XuatKhoes\Index.cshtml" />
+    <Content Include="Views\Roles\Create.cshtml" />
+    <Content Include="Views\Roles\Delete.cshtml" />
+    <Content Include="Views\Roles\Details.cshtml" />
+    <Content Include="Views\Roles\Edit.cshtml" />
+    <Content Include="Views\Roles\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -181,6 +230,11 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202111260820413_create_6_table.resx">
+      <DependentUpon>202111260820413_create_6_table.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

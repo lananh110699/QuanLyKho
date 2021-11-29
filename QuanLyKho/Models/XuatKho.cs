@@ -7,21 +7,23 @@ using System.Web;
 
 namespace QuanLyKho.Models
 {
-    [Table("HangHoa")]
-    public class HangHoa
+    [Table("XuatKho")]
+    public class XuatKho
     {
 
         [Key]
+        [Required(ErrorMessage = "Mã Phiếu Xuất không được để trống")]
+        [Display(Name = "Mã Phiếu Xuất")]
+        public string MaPhieuXuat { get; set; }
+
+        [Required(ErrorMessage = "Ngày xuất không được để trống")]
+        [Display(Name = "Ngày Xuất")]
+        public string NgayXuat { get; set; }
+
         [Required(ErrorMessage = "Mã Hàng không được để trống")]
         [Display(Name = "Mã Hàng")]
         public string MaHang { get; set; }
-
-        [Required(ErrorMessage = "Tên Hàng không được để trống")]
-        [Display(Name = "Tên Hàng")]
-        public string TenHang { get; set; }
-
-        [Required(ErrorMessage = "size không được để trống")]
-        public string Size { get; set; }
+        public HangHoa HangHoa { get; set; }
 
         [Display(Name = "Số Lượng")]
         public string SoLuong { get; set; }
@@ -29,10 +31,10 @@ namespace QuanLyKho.Models
         [Display(Name = "Đơn Giá")]
         public string DonGia { get; set; }
 
-
         [Display(Name = "Thành Tiền")]
         public string ThanhTien { get; set; }
-        public ICollection<XuatKho> XuatKho { get; set; }
-        public ICollection<NhapKho> NhapKho { get; set; }
+
+       
+
     }
 }

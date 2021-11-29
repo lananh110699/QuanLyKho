@@ -7,7 +7,7 @@ using System.Web;
 
 namespace QuanLyKho.Models
 {
-    [Table("NCCs")]
+    [Table("NCC")]
     public class NCC
     {
 
@@ -30,5 +30,6 @@ namespace QuanLyKho.Models
 
         [Required(ErrorMessage = "SĐT không được để trống")]
         public string SĐT { get; set; }
+        public ICollection<NhapKho> NhapKho { get; set; }
     }
 }
