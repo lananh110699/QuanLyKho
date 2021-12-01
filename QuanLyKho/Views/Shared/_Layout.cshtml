@@ -20,16 +20,16 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                    <li>@Html.ActionLink("Account", "Index", "Accounts", new { Area = "" }, null)</li>
-                    <li>@Html.ActionLink("HangHoa", "Index", "HangHoas", new { Area = "" }, null)</li>
-                    <li>@Html.ActionLink("NhapKho", "Index", "NhapKhoes", new { Area = "" }, null)</li>
-                    <li>@Html.ActionLink("XuatKho", "Index", "XuatKhoes", new { Area = "" }, null)</li>
+                    <li>@Html.ActionLink("Trang Chủ", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Giới Thiệu", "About", "Home")</li>
+                    <li>@Html.ActionLink("Liên Hệ", "Contact", "Home")</li>
+                    <li>@Html.ActionLink("Tài Khoản", "Login", "Accounts", new { Area = "" }, null)</li>
+                    <li>@Html.ActionLink("Hàng Hóa", "Index", "HangHoas", new { Area = "" }, null)</li>
+                    <li>@Html.ActionLink("Nhập Kho", "Index", "NhapKhoesAdmin", new { area = "Admin" }, new { @class = "navbar-brand" })</li>
+                    <li>@Html.ActionLink("Xuất Kho", "Index", "XuatKhoes", new { Area = "" }, null)</li>
                     <li>@Html.ActionLink("NCC", "Index", "NCCs", new { Area = "" }, null)</li>
-                    <li>@Html.ActionLink("Role", "Index", "Roles", new { Area = "" }, null)</li>
-                    <li>@Html.ActionLink("NhapKho", "Index", "NhapKhoesAdmin", new { area = "Admin" }, new { @class = "navbar-brand" })</li>
+                    <li>@Html.ActionLink("Phân Quyền", "Index", "Roles", new { Area = "" }, null)</li>
+                    
                 </ul>
             </div>
         </div>
@@ -38,7 +38,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>&copy; @DateTime.Now.Year - Lập Trình Quản Lý</p>
         </footer>
     </div>
 

@@ -7,7 +7,8 @@
 
 <h2>Index</h2>
 
-@using (Html.BeginForm("Action_Name", "Controller_Name", FormMethod.Post, new
+
+@using (Html.BeginForm("HangHoa", "HangHoas", FormMethod.Post, new
 { enctype = "multipart/form-data" }))
 {
     <div>
@@ -57,6 +58,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.ThanhTien)
             </td>
+            
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.MaHang }) |
                 @Html.ActionLink("Details", "Details", new { id = item.MaHang }) |

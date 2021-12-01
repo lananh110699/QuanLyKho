@@ -20,8 +20,9 @@ namespace QuanLyKho.Controllers
         ExcelProcess ExcelPro = new ExcelProcess();
         // GET: HangHoas
         public ActionResult Index()
-        {
+        {  
             return View(db.HangHoas.ToList());
+
         }
 
         // GET: HangHoas/Details/5
