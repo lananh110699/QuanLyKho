@@ -135,6 +135,7 @@
     <Compile Include="Controllers\AccountsController.cs" />
     <Compile Include="Controllers\HangHoasController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\KhachHangsController.cs" />
     <Compile Include="Controllers\NCCsController.cs" />
     <Compile Include="Controllers\NhapKhoesController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
@@ -150,12 +151,17 @@
     <Compile Include="Migrations\202111291501091_them_conf_account.Designer.cs">
       <DependentUpon>202111291501091_them_conf_account.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202112020922060_create_table_khachhang.cs" />
+    <Compile Include="Migrations\202112020922060_create_table_khachhang.Designer.cs">
+      <DependentUpon>202112020922060_create_table_khachhang.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Account.cs" />
     <Compile Include="Models\AutoGenerateKey.cs" />
     <Compile Include="Models\Encrytion.cs" />
     <Compile Include="Models\ExcelProcess.cs" />
     <Compile Include="Models\HangHoa.cs" />
+    <Compile Include="Models\KhachHang.cs" />
     <Compile Include="Models\LTQLDBContext.cs" />
     <Compile Include="Models\NCC.cs" />
     <Compile Include="Models\NhapKho.cs" />
@@ -239,6 +245,11 @@
     <Content Include="Views\Roles\Edit.cshtml" />
     <Content Include="Views\Roles\Index.cshtml" />
     <Content Include="Views\Accounts\Login.cshtml" />
+    <Content Include="Views\KhachHangs\Create.cshtml" />
+    <Content Include="Views\KhachHangs\Delete.cshtml" />
+    <Content Include="Views\KhachHangs\Details.cshtml" />
+    <Content Include="Views\KhachHangs\Edit.cshtml" />
+    <Content Include="Views\KhachHangs\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -265,6 +276,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202111291501091_them_conf_account.resx">
       <DependentUpon>202111291501091_them_conf_account.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112020922060_create_table_khachhang.resx">
+      <DependentUpon>202112020922060_create_table_khachhang.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

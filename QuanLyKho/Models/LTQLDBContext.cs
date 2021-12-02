@@ -17,6 +17,7 @@ namespace QuanLyKho.Models
         public virtual DbSet<XuatKho> XuatKhoes { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<Account> Accounts { get; set; }
+        public virtual DbSet<KhachHang> KhachHangs { get; set; }
 
 
 
