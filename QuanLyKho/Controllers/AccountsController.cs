@@ -13,110 +13,65 @@ namespace QuanLyKho.Controllers
 {
     public class AccountsController : Controller
     {
-        private LTQLDBContext db = new LTQLDBContext();
-        Encrytion Encry = new Encrytion();
+        Encrytion ecy = new Encrytion();
+        LTQLDBContext DB = new LTQLDBContext();
+        StringProcess pro = new StringProcess();
 
-        // GET: Accounts
-        public ActionResult Login(string returnUrl)
+        [HttpGet]
+        public ActionResult Register()
         {
-            if (CheckSession() == 1)
-            {
-                return RedirectToAction("Index", "NhapKhoesAdmin", new { Area = "Admin" });
-            }
-            else if (CheckSession() == 2)
-            {
-                return RedirectToAction("Index", "Home", new { Area = "" });
-            }
-            ViewBag.ReturnUrl = returnUrl;
             return View();
         }
-
-
-        [AllowAnonymous]
         [HttpPost]
-        public ActionResult Login(Account acc, string returnUrl)
+        [ValidateAntiForgeryToken]
+        [AllowAnonymous]
+        public ActionResult Register(Account acc)
         {
-            try
+            if (ModelState.IsValid)
             {
-                if (!string.IsNullOrEmpty(acc.Username) && !string.IsNullOrEmpty(acc.Password))
-                {
-                    using (var db = new LTQLDBContext())
-                    {
-                        var passToMD5 = Encry.PasswordEncrytion(acc.Password);
-                        var account = db.Accounts.Where(m => m.Username.Equals(acc.Username) && m.Password.Equals(passToMD5)).Count();
-                        if (account == 1)
-                        {
-                            FormsAuthentication.SetAuthCookie(acc.Username, false);
-                            Session["idUser"] = acc.Username;
-                            Session["roleUser"] = acc.RoleID;
-                            return RedirectToLocal(returnUrl);
-                        }
-                        ModelState.AddModelError("", "Thông tin đăng nhập chưa chính xác");
-                    }
-                }
-
-                ModelState.AddModelError("", "Username and password is required.");
-            }
-            catch
-            {
-                ModelState.AddModelError("", "Hệ thống đang được bảo trì, vui lòng liên hệ với quản trị viên");
+                //Mã Hóa mật khẩu trước khi cho vào database
+                acc.Password = ecy.PasswordEncrytion(acc.Password);
+                DB.Accounts.Add(acc);
+                DB.SaveChanges();
+                return RedirectToAction("Login", "Accounts");
             }
             return View(acc);
         }
-        private ActionResult RedirectToLocal(string returnUrl)
+        public ActionResult Login(string returnUrl)
+
         {
+            if (CheckSession() == 1)
 
-            if (string.IsNullOrEmpty(returnUrl) || returnUrl == "/")
             {
-                if (CheckSession() == 1)
-                {
-                    return RedirectToAction("Index", "NhapKhoesAdmin", new { Area = "Admin" });
-                }
-                else if (CheckSession() == 2)
 
-                {
-                    return RedirectToAction("Index", "Home", new { Area = "" });
-                }
+                return RedirectToAction("Index", "HomeAdmin", new { Area = "Admin" });
+            }
+            else if (CheckSession() == 2)
+
+            {
+                return RedirectToAction("Index", "HomeClient", new { Area = "Client" });
 
             }
-            if (Url.IsLocalUrl(returnUrl))
-            {
-                return Redirect(returnUrl);
-            }
+            ViewBag.ReturnUrl = returnUrl;
+            return View();
 
-            else
-            {
-                return RedirectToAction("Index", "Home");
-            }
         }
 
-
-        public ActionResult Logout()
-        {
-            FormsAuthentication.SignOut();
-            Session["iduser"] = null;
-            return RedirectToAction("Login", "Accounts");
-        }
-
-        //Kiểm tra người dùng đăng nhập quyền gì
         private int CheckSession()
         {
             using (var db = new LTQLDBContext())
             {
                 var user = HttpContext.Session["idUser"];
-
                 if (user != null)
                 {
                     var role = db.Accounts.Find(user.ToString()).RoleID;
-
                     if (role != null)
                     {
-                        if (role.ToString() == "Admin")
-
+                        if (role.ToString() == "ADMIN")
                         {
                             return 1;
                         }
-                        else if (role.ToString() == "client")
+                        else if (role.ToString() == "KH")
                         {
                             return 2;
                         }
@@ -126,5 +81,72 @@ namespace QuanLyKho.Controllers
             return 0;
         }
 
+        [HttpPost]
+        [AllowAnonymous]
+
+        public ActionResult Login(Account acc, string returnUrl)
+
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(acc.Username) && !string.IsNullOrEmpty(acc.Password))
+                {
+
+                    using (var db = new LTQLDBContext())
+
+                    {
+                        var passToMD5 = pro.GetMD5(acc.Password);
+                        var account = db.Accounts.Where(m => m.Username.Equals(acc.Username) && m.Password.Equals(passToMD5)).Count();
+                        if (account == 1)
+                        {
+                            FormsAuthentication.SetAuthCookie(acc.Username, false);
+                            Session["idUser"] = acc.Username;
+                            return RedirectTolocal(returnUrl);
+                        }
+
+                        ModelState.AddModelError("", "Thông tin đăng nhập chưa chính xác");
+
+                    }
+                }
+                ModelState.AddModelError("", "Username and password is required.");
+            }
+
+            catch
+            {
+                ModelState.AddModelError("", "Hệ thống đang được bảo trì, vui lòng liên hệ với quản trị viên");
+            }
+            return View(acc);
+        }
+
+        private ActionResult RedirectTolocal(string returnUrl)
+        {
+            if (string.IsNullOrEmpty(returnUrl) || returnUrl == "/")
+            {
+                if (CheckSession() == 1)
+                {
+                    return RedirectToAction("Index", "HomeAdmin", new { Area = "Admin" });
+                }
+                else if (CheckSession() == 2)
+                {
+                    return RedirectToAction("Index", "HomeClient", new { Area = "Client" });
+                }
+            }
+            if (Url.IsLocalUrl(returnUrl))
+            {
+                return Redirect(returnUrl);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+
+            }
+
+        }
+        public ActionResult Logout()
+        {
+            FormsAuthentication.SignOut();
+            Session["iduser"] = null;
+            return RedirectToAction("Login", "Accounts");
+        }
     }
 }

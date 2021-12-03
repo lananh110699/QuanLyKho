@@ -20,25 +20,18 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-
-
-                    <li>@Html.ActionLink("Giới Thiệu", "About", "Home")</li>
-                    <li>@Html.ActionLink("Liên Hệ", "Contact", "Home")</li>
-                    <li>@Html.ActionLink("Tạo tài khoản", "Register", "Accounts", new { area = "" }, new { @class = "navbar-brand" })</li>
-                    <li>@Html.ActionLink("Login", "Login", "Accounts", new { area = "" }, new { @class = "navbar-brand" })</li>
-                    <li>@Html.ActionLink("Logout", "Logout", "Accounts", new { area = "" }, new { @class = "navbar-brand" })</li>           
-                    <li>@Html.ActionLink("Admin", "Index", "HomeAdmin", new { area = "Admin" }, new { @class = "navbar-brand" })</li>
-                    <li>@Html.ActionLink("Client", "Index", "HomeClient", new { area = "Client" }, new { @class = "navbar-brand" })</li>
-
+                    <li>@Html.ActionLink("NCC", "Index", "NCCs")</li>
+                    <li>@Html.ActionLink("Nhập Kho", "Index", "NhapKhoes")</li>
                 </ul>
             </div>
         </div>
     </div>
+
     <div class="container body-content">
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - Lập Trình Quản Lý</p>
+            <p>&copy; @DateTime.Now.Year - Lập Trình Quản Lý</p>
         </footer>
     </div>
 

@@ -1,0 +1,132 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
+using System.Linq;
+using System.Net;
+using System.Web;
+using System.Web.Mvc;
+using QuanLyKho.Models;
+
+namespace QuanLyKho.Areas.Client.Controllers
+{
+    public class XuatKhoesController : Controller
+    {
+        private LTQLDBContext db = new LTQLDBContext();
+
+        // GET: Client/XuatKhoes
+        public ActionResult Index()
+        {
+            var xuatKhoes = db.XuatKhoes.Include(x => x.HangHoa);
+            return View(xuatKhoes.ToList());
+        }
+
+        // GET: Client/XuatKhoes/Details/5
+        public ActionResult Details(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            XuatKho xuatKho = db.XuatKhoes.Find(id);
+            if (xuatKho == null)
+            {
+                return HttpNotFound();
+            }
+            return View(xuatKho);
+        }
+
+        // GET: Client/XuatKhoes/Create
+        public ActionResult Create()
+        {
+            ViewBag.MaHang = new SelectList(db.HangHoas, "MaHang", "TenHang");
+            return View();
+        }
+
+        // POST: Client/XuatKhoes/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "MaPhieuXuat,NgayXuat,MaHang,SoLuong,DonGia,ThanhTien")] XuatKho xuatKho)
+        {
+            if (ModelState.IsValid)
+            {
+                db.XuatKhoes.Add(xuatKho);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            ViewBag.MaHang = new SelectList(db.HangHoas, "MaHang", "TenHang", xuatKho.MaHang);
+            return View(xuatKho);
+        }
+
+        // GET: Client/XuatKhoes/Edit/5
+        public ActionResult Edit(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            XuatKho xuatKho = db.XuatKhoes.Find(id);
+            if (xuatKho == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.MaHang = new SelectList(db.HangHoas, "MaHang", "TenHang", xuatKho.MaHang);
+            return View(xuatKho);
+        }
+
+        // POST: Client/XuatKhoes/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "MaPhieuXuat,NgayXuat,MaHang,SoLuong,DonGia,ThanhTien")] XuatKho xuatKho)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(xuatKho).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            ViewBag.MaHang = new SelectList(db.HangHoas, "MaHang", "TenHang", xuatKho.MaHang);
+            return View(xuatKho);
+        }
+
+        // GET: Client/XuatKhoes/Delete/5
+        public ActionResult Delete(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            XuatKho xuatKho = db.XuatKhoes.Find(id);
+            if (xuatKho == null)
+            {
+                return HttpNotFound();
+            }
+            return View(xuatKho);
+        }
+
+        // POST: Client/XuatKhoes/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(string id)
+        {
+            XuatKho xuatKho = db.XuatKhoes.Find(id);
+            db.XuatKhoes.Remove(xuatKho);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+    }
+}
