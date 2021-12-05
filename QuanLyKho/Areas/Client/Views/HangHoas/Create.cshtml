@@ -6,11 +6,19 @@
 }
 
 <h2>Create</h2>
+@using (Html.BeginForm("HangHoa", "HangHoas", FormMethod.Post, new
+{ enctype = "multipart/form-data" }))
+{
+    <div>
+        @Html.TextBox("file", "", new { type = "file" })<br />
+        <input type="submit" value="Upload" />
+    </div>
+}
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>HangHoa</h4>
         <hr />

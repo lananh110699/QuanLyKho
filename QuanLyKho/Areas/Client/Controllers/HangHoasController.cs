@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.Entity;
+using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -13,6 +16,7 @@ namespace QuanLyKho.Areas.Client.Controllers
     public class HangHoasController : Controller
     {
         private LTQLDBContext db = new LTQLDBContext();
+        ExcelProcess ExcelPro = new ExcelProcess();
 
         // GET: Client/HangHoas
         public ActionResult Index()
@@ -123,5 +127,34 @@ namespace QuanLyKho.Areas.Client.Controllers
             }
             base.Dispose(disposing);
         }
+        private DataTable CopyDataFromExcelFile(HttpPostedFileBase file)
+        {
+            string fileExtention = file.FileName.Substring(file.FileName.IndexOf("."));
+            string _FileName = "Ten_File_Muon_Luu" + fileExtention;
+            string _path = Path.Combine(Server.MapPath("~/Upload/Excels"), _FileName);
+            file.SaveAs(_path);
+            DataTable dt = ExcelPro.ReadDataFromExcelFile(_path, false);
+            return dt;
+        }
+        SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["LTQLDBContext"].ConnectionString);
+        private void OverwriteFastData(int? HangHoa)
+        {
+            //dt là databasecos chứa dữ liệu để import vào database
+            DataTable dt = new DataTable();
+
+            //mapping các column trong database vào các column trong table ở CSDL
+            SqlBulkCopy bulkcopy = new SqlBulkCopy(con);
+            bulkcopy.DestinationTableName = "HangHoa";
+            bulkcopy.ColumnMappings.Add("MaHang", "MaHang");
+            bulkcopy.ColumnMappings.Add("TenHang", "TenHang");
+            bulkcopy.ColumnMappings.Add("Size", "Size");
+            bulkcopy.ColumnMappings.Add("SoLuong", "SoLuong");
+            bulkcopy.ColumnMappings.Add("DonGia", "DonGia");
+            bulkcopy.ColumnMappings.Add("ThanhTien", "ThanhTien");
+            con.Open();
+            bulkcopy.WriteToServer(dt);
+            con.Close();
+        }
     }
+
 }
