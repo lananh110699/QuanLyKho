@@ -12,8 +12,9 @@ namespace QuanLyKho.Areas.Admin.Controllers
 {
     public class NCCsController : Controller
     {
-        private LTQLDBContext db = new LTQLDBContext();
-
+         LTQLDBContext db = new LTQLDBContext();
+        AutoGenerateKey aukey = new AutoGenerateKey();
+        
         // GET: Admin/NCCs
         public ActionResult Index()
         {
@@ -38,6 +39,9 @@ namespace QuanLyKho.Areas.Admin.Controllers
         // GET: Admin/NCCs/Create
         public ActionResult Create()
         {
+            var MNCCID = db.NCCs.OrderByDescending(m => m.MaNCC).FirstOrDefault().MaNCC;
+            var newID = aukey.GenerateKey(MNCCID);
+            ViewBag.NewMNCCID = newID;
             return View();
         }
 

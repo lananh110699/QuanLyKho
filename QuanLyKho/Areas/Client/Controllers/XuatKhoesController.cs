@@ -12,8 +12,8 @@ namespace QuanLyKho.Areas.Client.Controllers
 {
     public class XuatKhoesController : Controller
     {
-        private LTQLDBContext db = new LTQLDBContext();
-
+         LTQLDBContext db = new LTQLDBContext();
+        AutoGenerateKey aukey = new AutoGenerateKey();
         // GET: Client/XuatKhoes
         public ActionResult Index()
         {
@@ -39,6 +39,9 @@ namespace QuanLyKho.Areas.Client.Controllers
         // GET: Client/XuatKhoes/Create
         public ActionResult Create()
         {
+            var MPXID = db.XuatKhoes.OrderByDescending(m => m.MaPhieuXuat).FirstOrDefault().MaPhieuXuat;
+            var newID = aukey.GenerateKey(MPXID);
+            ViewBag.NewMPXID = newID;
             ViewBag.MaHang = new SelectList(db.HangHoas, "MaHang", "TenHang");
             return View();
         }

@@ -12,8 +12,8 @@ namespace QuanLyKho.Areas.Admin.Controllers
 {
     public class NhapKhoesController : Controller
     {
-        private LTQLDBContext db = new LTQLDBContext();
-
+         LTQLDBContext db = new LTQLDBContext();
+        AutoGenerateKey aukey = new AutoGenerateKey();
         // GET: Admin/NhapKhoes
         public ActionResult Index()
         {
@@ -39,6 +39,9 @@ namespace QuanLyKho.Areas.Admin.Controllers
         // GET: Admin/NhapKhoes/Create
         public ActionResult Create()
         {
+            var MPNID = db.NhapKhoes.OrderByDescending(m => m.MaPhieuNhap).FirstOrDefault().MaPhieuNhap;
+            var newID = aukey.GenerateKey(MPNID);
+            ViewBag.NewMPNID = newID;
             ViewBag.MaHang = new SelectList(db.HangHoas, "MaHang", "TenHang");
             ViewBag.MaNCC = new SelectList(db.NCCs, "MaNCC", "TenNCC");
             return View();

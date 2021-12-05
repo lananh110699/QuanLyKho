@@ -17,6 +17,7 @@ namespace QuanLyKho.Areas.Client.Controllers
     {
         private LTQLDBContext db = new LTQLDBContext();
         ExcelProcess ExcelPro = new ExcelProcess();
+        AutoGenerateKey aukey = new AutoGenerateKey();
 
         // GET: Client/HangHoas
         public ActionResult Index()
@@ -42,7 +43,11 @@ namespace QuanLyKho.Areas.Client.Controllers
         // GET: Client/HangHoas/Create
         public ActionResult Create()
         {
+            var MHHID = db.HangHoas.OrderByDescending(m => m.MaHang).FirstOrDefault().MaHang;
+            var newID = aukey.GenerateKey(MHHID);
+            ViewBag.NewMHHID = newID;
             return View();
+            
         }
 
         // POST: Client/HangHoas/Create
