@@ -39,9 +39,17 @@ namespace QuanLyKho.Areas.Admin.Controllers
         // GET: Admin/NCCs/Create
         public ActionResult Create()
         {
-            var MNCCID = db.NCCs.OrderByDescending(m => m.MaNCC).FirstOrDefault().MaNCC;
-            var newID = aukey.GenerateKey(MNCCID);
-            ViewBag.NewMNCCID = newID;
+            if (db.NCCs.OrderByDescending(m => m.MaNCC).Count() == 0)
+            {
+                var newID = "MNCC001";
+                ViewBag.NewMNCCID = newID;
+            }
+            else
+            {
+                var MNCCID = db.NCCs.OrderByDescending(m => m.MaNCC).FirstOrDefault().MaNCC;
+                var newID = aukey.GenerateKey(MNCCID);
+                ViewBag.NewMNCCID = newID;
+            }
             return View();
         }
 

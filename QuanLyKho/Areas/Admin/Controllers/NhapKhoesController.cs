@@ -39,11 +39,21 @@ namespace QuanLyKho.Areas.Admin.Controllers
         // GET: Admin/NhapKhoes/Create
         public ActionResult Create()
         {
-            var MPNID = db.NhapKhoes.OrderByDescending(m => m.MaPhieuNhap).FirstOrDefault().MaPhieuNhap;
-            var newID = aukey.GenerateKey(MPNID);
-            ViewBag.NewMPNID = newID;
+
+            if (db.NhapKhoes.OrderByDescending(m => m.MaPhieuNhap).Count() == 0)
+            {
+                var newID = "MPN001";
+                ViewBag.NewMPNID = newID;
+            }
+            else
+            {
+                var MPNID = db.NhapKhoes.OrderByDescending(m => m.MaPhieuNhap).FirstOrDefault().MaPhieuNhap;
+                var newID = aukey.GenerateKey(MPNID);
+                ViewBag.NewMPNID = newID;
+            }
             ViewBag.MaHang = new SelectList(db.HangHoas, "MaHang", "TenHang");
             ViewBag.MaNCC = new SelectList(db.NCCs, "MaNCC", "TenNCC");
+           
             return View();
         }
 

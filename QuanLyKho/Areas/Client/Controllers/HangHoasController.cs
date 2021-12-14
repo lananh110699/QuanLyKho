@@ -43,11 +43,19 @@ namespace QuanLyKho.Areas.Client.Controllers
         // GET: Client/HangHoas/Create
         public ActionResult Create()
         {
-            var MHHID = db.HangHoas.OrderByDescending(m => m.MaHang).FirstOrDefault().MaHang;
-            var newID = aukey.GenerateKey(MHHID);
-            ViewBag.NewMHHID = newID;
+            if (db.HangHoas.OrderByDescending(m => m.MaHang).Count() == 0)
+            {
+                var newID = "MHH001";
+                ViewBag.NewMHHID = newID;
+            }
+            else
+            {
+                var MHHID = db.HangHoas.OrderByDescending(m => m.MaHang).FirstOrDefault().MaHang;
+                var newID = aukey.GenerateKey(MHHID);
+                ViewBag.NewMHHID = newID;
+            }
             return View();
-            
+
         }
 
         // POST: Client/HangHoas/Create

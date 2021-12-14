@@ -71,7 +71,7 @@ namespace QuanLyKho.Controllers
                         {
                             return 1;
                         }
-                        else if (role.ToString() == "KH")
+                        else if (role.ToString() == "CLIENT")
                         {
                             return 2;
                         }

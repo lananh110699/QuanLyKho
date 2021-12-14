@@ -13,7 +13,7 @@ namespace QuanLyKho.Areas.Client.Controllers
     public class KhachHangsController : Controller
     {
         private LTQLDBContext db = new LTQLDBContext();
-
+        AutoGenerateKey aukey = new AutoGenerateKey();
         // GET: Client/KhachHangs
         public ActionResult Index()
         {
@@ -38,6 +38,18 @@ namespace QuanLyKho.Areas.Client.Controllers
         // GET: Client/KhachHangs/Create
         public ActionResult Create()
         {
+            if (db.KhachHangs.OrderByDescending(m => m.MaKhachHang).Count() == 0)
+            {
+                var newID = "MKH001";
+                ViewBag.NewMKHID = newID;
+            }
+            else
+            {
+                var MKHID = db.KhachHangs.OrderByDescending(m => m.MaKhachHang).FirstOrDefault().MaKhachHang;
+                var newID = aukey.GenerateKey(MKHID);
+                ViewBag.NewMKHID = newID;
+            }
+
             return View();
         }
 

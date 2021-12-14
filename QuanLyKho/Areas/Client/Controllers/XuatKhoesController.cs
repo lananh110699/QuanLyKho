@@ -39,9 +39,17 @@ namespace QuanLyKho.Areas.Client.Controllers
         // GET: Client/XuatKhoes/Create
         public ActionResult Create()
         {
-            var MPXID = db.XuatKhoes.OrderByDescending(m => m.MaPhieuXuat).FirstOrDefault().MaPhieuXuat;
-            var newID = aukey.GenerateKey(MPXID);
-            ViewBag.NewMPXID = newID;
+            if (db.XuatKhoes.OrderByDescending(m => m.MaPhieuXuat).Count() == 0)
+            {
+                var newID = "MPX001";
+                ViewBag.NewMPXID = newID;
+            }
+            else
+            {
+                var MPXID = db.XuatKhoes.OrderByDescending(m => m.MaPhieuXuat).FirstOrDefault().MaPhieuXuat;
+                var newID = aukey.GenerateKey(MPXID);
+                ViewBag.NewMPXID = newID;
+            }
             ViewBag.MaHang = new SelectList(db.HangHoas, "MaHang", "TenHang");
             return View();
         }
